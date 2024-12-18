@@ -1,0 +1,1572 @@
+{
+    "graph": {
+      "nodes": [
+        {
+          "_id": "VgveZ5IBZ11VXldXAcbT",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:44:15.676618+0000",
+            "name": "HALA DIGITAL OÜ",
+            "reg_code": "14276473",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-06-12",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-06-12"
+            }
+          }
+        },
+        {
+          "_id": "6BLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:50:27.736623+0000",
+            "name": "AVIRAM IVS",
+            "reg_code": "39589362",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "6RLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444798+0000",
+            "name": "CASEMI HOLDING APS",
+            "reg_code": "31280087",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "6hLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:50:27.736626+0000",
+            "name": "PETRI POULSEN HOLDING APS",
+            "reg_code": "39185970",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "PhDiZ5IBZ11VXldXWhqO",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:51:55.331912+0000",
+            "name": "GORILLA CAPITAL FUND 2017 KY",
+            "reg_code": "2868194-4",
+            "cc": "FIN"
+          }
+        },
+        {
+          "_id": "6xLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:50:27.736629+0000",
+            "name": "BAZHENOV MYKYTA",
+            "last_name": "BAZHENOV",
+            "given_name": "MYKYTA",
+            "dob": "1987-04-10"
+          }
+        },
+        {
+          "_id": "7BLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:57:24.168468+0000",
+            "name": "RUDCHUK ANDRII",
+            "last_name": "RUDCHUK",
+            "given_name": "ANDRII",
+            "dob": "1987-04-29"
+          }
+        },
+        {
+          "_id": "rQ_iZ5IBZ11VXldXE72i",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:50:12.633398+0000",
+            "name": "WISE GUYS BATCH 9 OÜ",
+            "reg_code": "14264398",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-05-23",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-05-23"
+            }
+          }
+        },
+        {
+          "_id": "7RLjZ5IBZ11VXldXrz1j",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444786+0000",
+            "name": "JAKOB SODE HOLDING APS",
+            "reg_code": "31061555",
+            "cc": "DNK"
+          }
+        },
+        {
+          "_id": "GgrcZ5IBZ11VXldX7bVY",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:43:04.857276+0000",
+            "name": "ALLIES OÜ",
+            "reg_code": "14630584",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2018-12-21",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2018-12-21"
+            }
+          }
+        },
+        {
+          "_id": "_w3fZ5IBZ11VXldXSgV2",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:06:59.477631+0000",
+            "name": "MONTONIO FINANCE OÜ",
+            "reg_code": "14557628",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2018-09-03",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2018-09-03"
+            }
+          }
+        },
+        {
+          "_id": "vA3fZ5IBZ11VXldXRgJx",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:45:38.778386+0000",
+            "name": "MODERAN SOLUTIONS OÜ",
+            "reg_code": "12958323",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2015-12-04",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2015-12-04"
+            }
+          }
+        },
+        {
+          "_id": "vBfnZ5IBZ11VXldXc9R2",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T17:10:38.082683+0000",
+            "name": "AINSOO DAG",
+            "last_name": "AINSOO",
+            "given_name": "DAG",
+            "dob": "1977-05-27"
+          }
+        },
+        {
+          "_id": "VwrcZ5IBZ11VXldXvoYj",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:11:12.508319+0000",
+            "name": "10XVENTURES OÜ",
+            "reg_code": "12716235",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2014-09-08",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2014-09-08"
+            }
+          }
+        },
+        {
+          "_id": "IRjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374372+0000",
+            "name": "LILLE FIX HOLDING APS",
+            "reg_code": "34084785",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "Lw7hZ5IBZ11VXldXT_6C",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:10:18.724874+0000",
+            "name": "SYSTEM CAPITAL OÜ",
+            "reg_code": "12040542",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2011-01-12",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2011-01-12"
+            }
+          }
+        },
+        {
+          "_id": "yBTlZ5IBZ11VXldXGDri",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:07:09.730755+0000",
+            "name": "UAB \"MODUS MOBILITY\"",
+            "reg_code": "302784358",
+            "cc": "LTU"
+          }
+        },
+        {
+          "_id": "HBjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374408+0000",
+            "name": "SEYDLITZ GROUP APS",
+            "reg_code": "34727082",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "tg_iZ5IBZ11VXldXE72i",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444776+0000",
+            "name": "WISE GUYS INVESTMENT OÜ",
+            "reg_code": "12236417",
+            "cc": "LVA",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2012-02-16",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2012-02-16"
+            }
+          }
+        },
+        {
+          "_id": "IhjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:55:34.374379+0000",
+            "name": "RIEKSTIŅŠ ANDRIS",
+            "last_name": "RIEKSTIŅŠ",
+            "given_name": "ANDRIS",
+            "dob": "1971-01-03"
+          }
+        },
+        {
+          "_id": "IxjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374381+0000",
+            "name": "CAVE APS",
+            "reg_code": "38659391",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "xwvdZ5IBZ11VXldX3aHD",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:44:06.427882+0000",
+            "name": "FRACTORY SOLUTIONS OÜ",
+            "reg_code": "14300852",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-07-26",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-07-26"
+            }
+          }
+        },
+        {
+          "_id": "SQ7hZ5IBZ11VXldXK9l4",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:47:42.905971+0000",
+            "name": "SMARTSUB INC OÜ",
+            "reg_code": "14335129",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-09-19",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-09-19"
+            }
+          }
+        },
+        {
+          "_id": "Sg7hZ5IBZ11VXldXU_9-",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:47:53.152822+0000",
+            "name": "ZEEW OÜ",
+            "reg_code": "14978057",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2020-05-25",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2020-05-25"
+            }
+          }
+        },
+        {
+          "_id": "wg_hZ5IBZ11VXldXr1mN",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:48:16.724289+0000",
+            "name": "TRAPMINE OÜ",
+            "reg_code": "14363739",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-11-01",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-11-01"
+            }
+          }
+        },
+        {
+          "_id": "qg_iZ5IBZ11VXldXE72i",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:49:39.082038+0000",
+            "name": "WISE GUYS BATCH 10 OÜ",
+            "reg_code": "14376051",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-11-22",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-11-22"
+            }
+          }
+        },
+        {
+          "_id": "JBjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374382+0000",
+            "name": "GLASAU SIA",
+            "reg_code": "40103229909",
+            "cc": "LVA"
+          }
+        },
+        {
+          "_id": "tQ_iZ5IBZ11VXldXE72i",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:11:05.439201+0000",
+            "name": "WISE GUYS HOLDING OÜ",
+            "reg_code": "14081077",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2016-07-13",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2016-07-13"
+            }
+          }
+        },
+        {
+          "_id": "Tw7hZ5IBZ11VXldXP-1-",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:10:38.083571+0000",
+            "name": "STEPPAZ KRUE OÜ",
+            "reg_code": "12255946",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2012-03-27",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2012-03-27"
+            }
+          }
+        },
+        {
+          "_id": "ig7hZ5IBZ11VXldXF8Zn",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:09:38.211360+0000",
+            "name": "SIENA HOLDING OÜ",
+            "reg_code": "12658992",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2014-05-09",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2014-05-09"
+            }
+          }
+        },
+        {
+          "_id": "8RHjZ5IBZ11VXldXVMqK",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444801+0000",
+            "name": "ADES HOLDING",
+            "reg_code": "30514505",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "ExjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374411+0000",
+            "name": "BKHS SIA",
+            "reg_code": "40003511759",
+            "cc": "LVA"
+          }
+        },
+        {
+          "_id": "Uw_iZ5IBZ11VXldXD7md",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:10:57.249336+0000",
+            "name": "WERKDATA OÜ",
+            "reg_code": "11288843",
+            "cc": "DEN",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2006-10-17",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2006-10-17"
+            }
+          }
+        },
+        {
+          "_id": "BxLjZ5IBZ11VXldXoyR-",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444803+0000",
+            "name": "PETER SANDBERG MANAGEMENT APS",
+            "reg_code": "29979200",
+            "cc": "DEN"
+          }
+        },
+        {
+          "_id": "ERjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.374412+0000",
+            "name": "EKJ INVESTMENTS LLC",
+            "reg_code": "46-2585055",
+            "cc": "USA"
+          }
+        },
+        {
+          "_id": "EBjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:55:34.374413+0000",
+            "name": "BECKER ANDREAS",
+            "last_name": "BECKER",
+            "given_name": "ANDREAS",
+            "dob": "1974-08-27"
+          }
+        },
+        {
+          "_id": "JRjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:55:34.374394+0000",
+            "name": "BIKUSOV ARTEM",
+            "last_name": "BIKUSOV",
+            "given_name": "ARTEM",
+            "dob": "1990-06-02"
+          }
+        },
+        {
+          "_id": "Mg7gZ5IBZ11VXldXx3c4",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T17:10:57.249335+0000",
+            "name": "RAND CONSULTING OÜ",
+            "reg_code": "12386312",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2012-11-30",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2012-11-30"
+            }
+          }
+        },
+        {
+          "_id": "JhjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:55:34.374397+0000",
+            "name": "SAN JUAN OSCAR",
+            "last_name": "SAN JUAN",
+            "given_name": "OSCAR",
+            "dob": "1976-05-31"
+          }
+        },
+        {
+          "_id": "JxjoZ5IBZ11VXldXXa8w",
+          "_cc": "est",
+          "source": {
+            "context": "person",
+            "processing_date": "2024-10-07T16:55:34.374399+0000",
+            "name": "SOLODKYY KOSTYANTYN",
+            "last_name": "SOLODKYY",
+            "given_name": "KOSTYANTYN",
+            "dob": "1984-03-22"
+          }
+        },
+        {
+          "_id": "1A7gZ5IBZ11VXldXbyEQ",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444804+0000",
+            "name": "OÜ VALGUSETOOJA",
+            "reg_code": "14303721",
+            "cc": "EST",
+            "status": {
+              "context": "registered",
+              "context_original": "Registrisse kantud",
+              "date_from": "2017-08-01",
+              "date_until": null
+            },
+            "registration": {
+              "context": "LLC",
+              "context_long": "Limited Liability Company",
+              "context_original": "Osaühing",
+              "date_from": "2017-08-01"
+            }
+          }
+        },
+        {
+          "_id": "IRfnZ5IBZ11VXldXd9pr",
+          "_cc": "est",
+          "source": {
+            "context": "company",
+            "processing_date": "2024-10-07T16:55:34.444785+0000",
+            "name": "KELAVINT ADVISORY FZE",
+            "reg_code": "22501",
+            "cc": "UAE"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736624+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "143.00",
+            "percent": "3.81",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736625+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "403.00",
+            "percent": "10.75",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736626+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "142.00",
+            "percent": "3.79",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736628+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "217.00",
+            "percent": "5.79",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736629+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "575.00",
+            "percent": "15.33",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736632+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "1925.00",
+            "percent": "51.33",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736635+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "244.00",
+            "percent": "6.51",
+            "currency": "EUR",
+            "date_from": "2023-09-02"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:27.736636+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "101.00",
+            "percent": "2.69",
+            "currency": "EUR",
+            "date_from": "2023-11-07"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:57:24.081969+0000",
+            "context": "beneficiery",
+            "sub_context_label": "Direct beneficiery",
+            "sub_context": "direct",
+            "sub_context_original": "otsene osalus",
+            "date_from": "2018-10-26"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374375+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "1111.00",
+            "percent": "5.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:49:00.462989+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "405.00",
+            "percent": "6.46",
+            "currency": "EUR",
+            "date_from": "2023-09-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:51:55.247264+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "72.36",
+            "percent": "0.59",
+            "currency": "EUR",
+            "date_from": "2022-05-09"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:51:54.237341+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "862.50",
+            "percent": "8.32",
+            "currency": "EUR",
+            "date_from": "2023-01-25"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T17:02:56.268868+0000",
+            "context": "beneficiery",
+            "sub_context_label": "Governing beneficiery",
+            "sub_context": "governing",
+            "sub_context_original": "kõrgema juhtorgani liige. s.o juhatuse liige või nõukogu liige",
+            "date_from": "2018-10-20"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374371+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374373+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "1333.00",
+            "percent": "6.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374374+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "111.00",
+            "percent": "0.50",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374376+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374377+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "889.00",
+            "percent": "4.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374378+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "667.00",
+            "percent": "3.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374379+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "889.00",
+            "percent": "4.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374381+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "889.00",
+            "percent": "4.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:50:12.558657+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "976.00",
+            "percent": "1.27",
+            "currency": "EUR",
+            "date_from": "2022-07-22"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:54:25.363427+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "244.00",
+            "percent": "8.89",
+            "currency": "EUR",
+            "date_from": "2023-09-01"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:54:35.547402+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "244.00",
+            "percent": "7.53",
+            "currency": "EUR",
+            "date_from": "2023-09-01"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:05.933215+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "297.15",
+            "percent": "10.00",
+            "currency": "EUR",
+            "date_from": "2024-01-08"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.373724+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "562.00",
+            "percent": "2.40",
+            "currency": "EUR",
+            "date_from": "2023-11-06"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374384+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "444.00",
+            "percent": "2.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374382+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "2222.00",
+            "percent": "10.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374385+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "4443.00",
+            "percent": "20.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374386+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374387+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374388+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "889.00",
+            "percent": "4.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374388+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "1778.00",
+            "percent": "8.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374390+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "444.00",
+            "percent": "2.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374391+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "1778.00",
+            "percent": "8.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374392+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374393+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "1111.00",
+            "percent": "5.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374394+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "444.00",
+            "percent": "2.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374397+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374398+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "111.00",
+            "percent": "0.50",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374399+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "natural",
+            "size": "444.00",
+            "percent": "2.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374402+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "222.00",
+            "percent": "1.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T16:55:34.374403+0000",
+            "context": "ownership",
+            "sub_context_label": "Full Ownership",
+            "sub_context": "full",
+            "sub_context_original": "Ainuomand",
+            "entity": "juridical",
+            "size": "667.00",
+            "percent": "3.00",
+            "currency": "EUR",
+            "date_from": "2024-07-03"
+          }
+        },
+        {
+          "source": {
+            "processing_date": "2024-10-07T17:11:05.331524+0000",
+            "context": "link",
+            "sub_context_label": "Founder",
+            "sub_context": "founder",
+            "sub_context_original": "Asutaja",
+            "date_from": "2017-05-22"
+          }
+        }
+      ],
+      "connections": {
+        "1": [
+          [
+            0,
+            0
+          ]
+        ],
+        "2": [
+          [
+            0,
+            1
+          ],
+          [
+            7,
+            9
+          ]
+        ],
+        "3": [
+          [
+            0,
+            2
+          ]
+        ],
+        "4": [
+          [
+            0,
+            3
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "5": [
+          [
+            0,
+            4
+          ]
+        ],
+        "6": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            8
+          ]
+        ],
+        "7": [
+          [
+            0,
+            6
+          ],
+          [
+            21,
+            22
+          ],
+          [
+            22,
+            23
+          ],
+          [
+            23,
+            24
+          ],
+          [
+            24,
+            25
+          ]
+        ],
+        "8": [
+          [
+            0,
+            7
+          ],
+          [
+            7,
+            27
+          ],
+          [
+            25,
+            26
+          ]
+        ],
+        "12": [
+          [
+            7,
+            13
+          ]
+        ],
+        "13": [
+          [
+            7,
+            14
+          ]
+        ],
+        "14": [
+          [
+            7,
+            15
+          ]
+        ],
+        "15": [
+          [
+            7,
+            16
+          ]
+        ],
+        "16": [
+          [
+            7,
+            17
+          ]
+        ],
+        "17": [
+          [
+            7,
+            18
+          ]
+        ],
+        "18": [
+          [
+            7,
+            19
+          ]
+        ],
+        "19": [
+          [
+            7,
+            20
+          ]
+        ],
+        "20": [
+          [
+            7,
+            21
+          ]
+        ],
+        "26": [
+          [
+            7,
+            28
+          ]
+        ],
+        "27": [
+          [
+            7,
+            29
+          ],
+          [
+            7,
+            44
+          ]
+        ],
+        "28": [
+          [
+            7,
+            30
+          ]
+        ],
+        "29": [
+          [
+            7,
+            31
+          ]
+        ],
+        "30": [
+          [
+            7,
+            32
+          ]
+        ],
+        "31": [
+          [
+            7,
+            33
+          ]
+        ],
+        "32": [
+          [
+            7,
+            34
+          ]
+        ],
+        "33": [
+          [
+            7,
+            35
+          ]
+        ],
+        "34": [
+          [
+            7,
+            36
+          ]
+        ],
+        "35": [
+          [
+            7,
+            37
+          ]
+        ],
+        "36": [
+          [
+            7,
+            38
+          ]
+        ],
+        "37": [
+          [
+            7,
+            39
+          ]
+        ],
+        "38": [
+          [
+            7,
+            40
+          ]
+        ],
+        "39": [
+          [
+            7,
+            41
+          ]
+        ],
+        "40": [
+          [
+            7,
+            42
+          ]
+        ],
+        "41": [
+          [
+            7,
+            43
+          ]
+        ]
+      }
+    }
+  }
