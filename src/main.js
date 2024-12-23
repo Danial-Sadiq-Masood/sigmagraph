@@ -1,4 +1,4 @@
-import res from "./res.json"
+import res from "./res1.json"
 
 import Graph from 'graphology';
 import Sigma from "sigma";
@@ -13,9 +13,36 @@ import EdgeCurveProgram from "@sigma/edge-curve";
 import clusters from "graphology-generators/random/clusters";
 import seedrandom from "seedrandom";
 
-import { EdgeLineProgram, EdgeRectangleProgram } from "sigma/rendering";
+import { EdgeLineProgram, EdgeRectangleProgram, EdgeArrowProgram } from "sigma/rendering";
 
 import { nodeExtent, edgeExtent } from 'graphology-metrics/graph';
+
+import { Application, Assets, Sprite, Graphics, Text, GraphicsContext } from 'pixi.js';
+
+import { createNodeImageProgram } from "@sigma/node-image";
+
+import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
+
+import { createMachine, setup, createActor } from 'xstate';
+
+import bunnySprite from './images/bunny.png';
+
+import estSprite from './images/est.png';
+
+import userCircle from './images/user-circle.png';
+
+import office from './images/office.png';
+
+const svgMap = new Map(
+  [
+    ['company', { url: office, color: '#e1e3e1' }],
+    ['person', { url: userCircle, color: '#007AFF' }]
+  ]
+);
+
+
+
+const texture = await Assets.load(estSprite);
 
 window.res = res;
 
@@ -72,47 +99,9 @@ function generateGraph(clickedPoint) {
 
 window.generateGraph = generateGraph;
 
-const graph = new Graph({ multi: true });
+const graph = createGraphFromAPI(res.graph);
 
 window.graph = graph;
-
-res.graph.nodes.forEach((d, i) => {
-  graph.addNode(d._id, {
-    ...d.source, _cc: d._cc, label: d.source.name,
-    size: i == 0 ? 20 : 10,
-    degree: i == 0 ? 0 : 1,
-    color: i == 0 ? '#0000b7' : '#9960f7'
-  })
-})
-
-Object.entries(res.graph.connections).forEach(
-  ([sourceIndex, connectionsArr]) => {
-    const source = res.graph.nodes[sourceIndex]
-    connectionsArr.forEach(([targetIndex, edgeIndex]) => {
-      const target = res.graph.nodes[targetIndex]
-      const edge = res.graph.edges[edgeIndex]
-      edge.size = 2;
-      edge.label = edge.source.sub_context_label;
-      try {
-        graph.addDirectedEdge(source._id, target._id, edge)
-      } catch (error) {
-        console.log(error);
-        console.log(sourceIndex, [targetIndex, edgeIndex])
-      };
-    })
-  }
-)
-
-const positions = circular(graph, { dimensions: [1000, 1000] });
-
-random.assign(graph);
-
-const positionsForced = forceLayout(graph, { maxIterations: 50 });
-
-circlepack.assign(graph, {
-  hierarchyAttributes: ['degree']
-});
-
 
 const renderer = new Sigma(
   graph,
@@ -121,15 +110,21 @@ const renderer = new Sigma(
     defaultDrawNodeLabel: drawLabel,
     labelWeight: 500,
     labelSize: 15,
-    labelRenderedSizeThreshold: 10,
+    labelRenderedSizeThreshold: 13,
     defaultDrawNodeHover: drawHover,
     labelFont: "Ubuntu, sans-serif",
     renderEdgeLabels: true,
     edgeLabelSize: 10,
-    defaultEdgeType: "arrow",
     edgeLabelSizePowRatio: 0.6,
+    defaultEdgeType: "straight",
     edgeProgramClasses: {
-      curved: EdgeCurveProgram,
+      straight: EdgeArrowProgram,
+      curved: EdgeCurvedArrowProgram
+    },
+    nodeProgramClasses: {
+      image: createNodeImageProgram({
+        size: { mode: "force", value: 256 },
+      })
     }
   }
 );
@@ -279,7 +274,9 @@ const handleUp = () => {
 renderer.on("upNode", handleUp);
 renderer.on("upStage", handleUp);
 
-const state = { searchQuery: "" };
+const state = { searchQuery: "", hidden: {} };
+
+window.state = state;
 
 function setHoveredNode(node) {
   if (node) {
@@ -304,14 +301,31 @@ renderer.on("enterNode", ({ node }) => {
 });
 renderer.on("leaveNode", () => {
   setHoveredNode(undefined);
+
+  graph.forEachNode(nodeId => {
+    const res = graph.getNodeAttributes(nodeId);
+    res.sprite.renderable = true;
+    res.textSprite.renderable = true;
+    res.circleSprite.renderable = true;
+  })
 });
 
 renderer.setSetting("nodeReducer", (node, data) => {
-  const res = { ...data };
+
+  if (state.hidden[node]) {
+    return { ...data, hidden: true };
+  }
+
+  return data;
+  /*const res = { ...data };
 
   if (state.hoveredNeighbors && !state.hoveredNeighbors.has(node) && state.hoveredNode !== node) {
     res.label = "";
     res.color = "#f6f6f6";
+    res.image = null;
+    res.sprite.renderable = false;
+    res.textSprite.renderable = false;
+    res.circleSprite.renderable = false;
   }
 
   if (state.selectedNode === node) {
@@ -325,11 +339,20 @@ renderer.setSetting("nodeReducer", (node, data) => {
     }
   }
 
-  return res;
+  return res;*/
 });
 
 renderer.setSetting("edgeReducer", (edge, data) => {
-  const res = { ...data };
+  /*if(isDragging){
+    return {
+      ...data,
+      hidden : true
+    }
+  }*/
+
+  return data;
+
+  /*const res = { ...data };
 
   if (
     state.hoveredNode &&
@@ -345,7 +368,7 @@ renderer.setSetting("edgeReducer", (edge, data) => {
     res.hidden = true;
   }
 
-  return res;
+  return res;*/
 });
 
 renderer.on("doubleClickNode", ({ event, node: clickedNode }) => {
@@ -383,12 +406,13 @@ renderer.on("doubleClickNode", ({ event, node: clickedNode }) => {
   nodesArr.forEach(({ attributes }) => {
     const dflx = Math.abs(attributes.x - bbox.x[0]);
     attributes.x = attributes.x - dflx - Math.abs(attributes.x) - 2;
-  })*/
+  })
 
   const clickedPoint = renderer.viewportToGraph({ x: event.x, y: event.y });
 
   const new_graph = generateGraph(clickedPoint);
 
+  addSprite(new_graph, window.app)
 
   const bbox = renderer.getBBox();
 
@@ -423,7 +447,7 @@ renderer.on("doubleClickNode", ({ event, node: clickedNode }) => {
   nodes.slice(1).forEach(d => graph.addEdge(nodes[0]._id, d._id));
 
   // We create the edges
-  graph.addEdge(id, clickedNode);
+  graph.addEdge(id, clickedNode);*/
 });
 
 function getClosestEdge(bbox, eventCoords) {
@@ -497,4 +521,239 @@ function translatePoints(graph, translationSettings, bbox) {
       attributes.x = attributes.x + (randomx * randomDirection);
     })
   }
+}
+
+const createPixiLayer = async () => {
+  // Create a PixiJS application.
+  const app = new Application();
+
+  // Intialize the application.
+  await app.init({ backgroundAlpha: 0, resizeTo: window });
+
+  // Then adding the application's canvas to the DOM body.
+
+  window.app = app;
+
+  const container = document.getElementById('app')
+
+  addSprite(graph, app)
+
+  app.canvas.style.position = 'absolute'
+  container
+    .insertBefore(app.canvas, container.querySelector(".sigma-labels"));
+
+  renderer.on("afterRender", () => {
+
+    const scale = renderer.scaleSize(1);
+
+    Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
+
+      const coords = renderer.graphToViewport({ x: d.x, y: d.y })
+      d.sprite.x = coords.x - renderer.scaleSize(7);
+      d.sprite.y = coords.y - renderer.scaleSize(7);
+
+      d.sprite.width = 10 * scale;
+      d.sprite.height = 5 * scale;
+
+      d.circleSprite.x = coords.x + renderer.scaleSize(7);
+      d.circleSprite.y = coords.y - renderer.scaleSize(7);
+
+      d.circleSprite.width = 12 * scale;
+      d.circleSprite.height = 12 * scale;
+
+      d.textSprite.x = coords.x + renderer.scaleSize(7);
+      d.textSprite.y = coords.y - renderer.scaleSize(7);
+
+      d.textSprite.style.fontSize = 7 * scale;
+    })
+  });
+};
+
+const flagsTextureMap = {
+
+}
+
+function addSprite(graph, app) {
+
+  let circleContext = new GraphicsContext()
+    .circle(0, 0, 6)
+    .fill('red')
+
+
+  Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
+    const sprite = new Sprite(texture);
+
+    sprite.anchor.set(0.5);
+    app.stage.addChild(sprite);
+
+    d.sprite = sprite;
+
+    const coords = renderer.graphToViewport({ x: d.x, y: d.y })
+    sprite.x = coords.x;
+    sprite.y = coords.y;
+    sprite.width = 10;
+    sprite.height = 5;
+
+    const circleSprite = new Graphics(circleContext);
+
+    circleSprite.x = coords.x;
+    circleSprite.y = coords.y;
+
+    d.circleSprite = circleSprite;
+
+    app.stage.addChild(circleSprite);
+
+    const text = new Text(d.outgoingEdgeCount,
+      {
+        fontFamily: 'Arial',
+        fill: '#ffffff',
+        align: 'center',
+        fontSize: 7
+      }
+    );
+
+    d.textSprite = text;
+
+    text.anchor.set(0.5);
+    text.x = coords.x;
+    text.y = coords.y;
+
+    app.stage.addChild(text);
+  })
+}
+
+createPixiLayer();
+
+class GraphViz {
+  constructor(container, graph, renderer) {
+    this.container = container;
+    this.graph = graph;
+    this.renderer = renderer;
+
+    this.collapsedNodes = [];
+    this.highlightedNodes = [];
+  }
+}
+
+function getCurvature(index, maxIndex) {
+  if (maxIndex <= 0) throw new Error("Invalid maxIndex");
+  if (index < 0) return -getCurvature(-index, maxIndex);
+  const amplitude = 3.5;
+  const maxCurvature = amplitude * (1 - Math.exp(-maxIndex / amplitude)) * DEFAULT_EDGE_CURVATURE;
+  return (maxCurvature * index) / maxIndex;
+}
+
+//graph creation
+
+function createGraphFromAPI(graphData) {
+
+  const graph = new Graph({ multi: true });
+
+  const nodes = graphData.nodes;
+  const edges = graphData.edges;
+  const connections = graphData.connections;
+
+  //add nodes
+  nodes.forEach((d, i) => {
+
+    const outgoingEdgeCount = connections[i];
+
+    graph.addNode(d._id, {
+      ...d.source,
+      _cc: d._cc,
+      label: d.source.name,
+      size: i == 0 ? 10 : 10,
+      outgoingEdgeCount: outgoingEdgeCount ? outgoingEdgeCount.length : 0,
+      type: "image",
+      image: svgMap.get(d.source.context).url,
+      color: svgMap.get(d.source.context).color
+    })
+  })
+
+  //add edges
+  Object.entries(connections).forEach(
+    ([sourceIndex, connectionsArr]) => {
+      const source = nodes[sourceIndex]
+      connectionsArr.forEach(([targetIndex, edgeIndex]) => {
+        const target = nodes[targetIndex]
+        const edge = edges[edgeIndex]
+        edge.size = 1;
+        edge.label = edge.source.sub_context_label;
+        try {
+          graph.addDirectedEdge(source._id, target._id, edge)
+        } catch (error) {
+          console.log(error);
+          console.log(sourceIndex, [targetIndex, edgeIndex])
+        };
+      })
+    }
+  )
+
+  indexParallelEdgesIndex(graph, {
+    edgeIndexAttribute: "parallelIndex",
+    edgeMinIndexAttribute: "parallelMinIndex",
+    edgeMaxIndexAttribute: "parallelMaxIndex",
+  });
+
+  // Adapt types and curvature of parallel edges for rendering:
+  graph.forEachEdge(
+    (
+      edge,
+      {
+        parallelIndex,
+        parallelMinIndex,
+        parallelMaxIndex,
+      }
+    ) => {
+      if (typeof parallelMinIndex === "number") {
+        graph.mergeEdgeAttributes(edge, {
+          type: parallelIndex ? "curved" : "straight",
+          curvature: getCurvature(parallelIndex, parallelMaxIndex),
+        });
+      } else if (typeof parallelIndex === "number") {
+        graph.mergeEdgeAttributes(edge, {
+          type: "curved",
+          curvature: getCurvature(parallelIndex, parallelMaxIndex),
+        });
+      } else {
+        graph.setEdgeAttribute(edge, "type", "straight");
+      }
+    },
+  );
+
+  //assign random coordinates for forceAtlas2
+  random.assign(graph);
+
+  const sensibleSettings = forceAtlas2.inferSettings(graph);
+
+  //run forceAtlas2
+  circlepack.assign(graph, {
+    hierarchyAttributes: ['context'],
+    scale: 4
+  });
+
+  return graph;
+}
+
+function createVizStateChart(initialData, container) {
+
+  const graphStateChart = setup({
+    actions: {
+      'initViz': () => {
+      }
+    }
+  })
+    .createMachine({
+      id: 'graphviz',
+      initial: 'init',
+      states: {
+        'init': {
+          entry: {
+            type: 'initViz'
+          }
+        }
+      }
+    })
+
+  const actor = createActor(graphStateChart);
 }

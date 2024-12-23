@@ -13,13 +13,16 @@
   },
   "dependencies": {
     "@sigma/edge-curve": "^3.1.0",
+    "@sigma/node-image": "^3.0.0",
     "graphology": "^0.25.4",
     "graphology-generators": "^0.11.2",
     "graphology-layout": "^0.6.1",
     "graphology-layout-force": "^0.2.4",
     "graphology-layout-forceatlas2": "^0.10.1",
     "graphology-metrics": "^2.3.1",
+    "pixi.js": "^8.6.6",
     "seedrandom": "^3.0.5",
-    "sigma": "^3.0.0-beta.39"
+    "sigma": "^3.0.0-beta.39",
+    "xstate": "^5.19.0"
   }
 }
