@@ -1,29 +1,26 @@
 import res from "./res1.json"
 
 import Graph from 'graphology';
-import Sigma from "sigma";
 
 import { random, circular, circlepack } from 'graphology-layout';
 
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 import forceLayout from 'graphology-layout-force';
 
-import EdgeCurveProgram from "@sigma/edge-curve";
-
 import clusters from "graphology-generators/random/clusters";
 import seedrandom from "seedrandom";
 
-import { EdgeLineProgram, EdgeRectangleProgram, EdgeArrowProgram } from "sigma/rendering";
+import { dfsFromNode } from 'graphology-traversal';
 
 import { nodeExtent, edgeExtent } from 'graphology-metrics/graph';
 
 import { Application, Assets, Sprite, Graphics, Text, GraphicsContext } from 'pixi.js';
 
-import { createNodeImageProgram } from "@sigma/node-image";
-
 import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
 
 import { createMachine, setup, createActor } from 'xstate';
+
+import { createRenderer } from './SigmaRenderer'
 
 import bunnySprite from './images/bunny.png';
 
@@ -45,8 +42,6 @@ const svgMap = new Map(
 const texture = await Assets.load(estSprite);
 
 window.res = res;
-
-const TEXT_COLOR = "#b186f7";
 
 const rng = seedrandom("sigma");
 
@@ -99,140 +94,8 @@ function generateGraph(clickedPoint) {
 
 window.generateGraph = generateGraph;
 
-const graph = createGraphFromAPI(res.graph);
 
-window.graph = graph;
-
-const renderer = new Sigma(
-  graph,
-  document.getElementById("app"),
-  {
-    defaultDrawNodeLabel: drawLabel,
-    labelWeight: 500,
-    labelSize: 15,
-    labelRenderedSizeThreshold: 13,
-    defaultDrawNodeHover: drawHover,
-    labelFont: "Ubuntu, sans-serif",
-    renderEdgeLabels: true,
-    edgeLabelSize: 10,
-    edgeLabelSizePowRatio: 0.6,
-    defaultEdgeType: "straight",
-    edgeProgramClasses: {
-      straight: EdgeArrowProgram,
-      curved: EdgeCurvedArrowProgram
-    },
-    nodeProgramClasses: {
-      image: createNodeImageProgram({
-        size: { mode: "force", value: 256 },
-      })
-    }
-  }
-);
-
-window.renderer = renderer;
-
-function drawLabel(
-  context,
-  data,
-  settings,
-) {
-  if (!data.label) return;
-
-  const size = settings.labelSize,
-    font = settings.labelFont,
-    weight = settings.labelWeight;
-
-  context.font = `${weight} ${size}px ${font}`;
-  const width = context.measureText(data.label).width + 8;
-
-  context.fillStyle = "#ffffffcc";
-  context.fillRect(data.x + data.size, data.y + size / 3 - 15, width, 20);
-
-  context.fillStyle = TEXT_COLOR;
-  context.fillText(data.label, data.x + data.size + 3, data.y + size / 3);
-}
-
-function drawRoundRect(
-  ctx,
-  x,
-  y,
-  width,
-  height,
-  radius,
-) {
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + width - radius, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-  ctx.lineTo(x + width, y + height - radius);
-  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-  ctx.lineTo(x + radius, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.closePath();
-}
-
-
-function drawHover(context, data, settings) {
-  const size = settings.labelSize;
-  const font = settings.labelFont;
-  const weight = settings.labelWeight;
-  const subLabelSize = size - 2;
-
-  const label = data.label;
-  //const subLabel = data.tag !== "unknown" ? data.tag : "";
-  //const clusterLabel = data.clusterLabel;
-
-  // Then we draw the label background
-  context.beginPath();
-  context.fillStyle = "#fff";
-  context.shadowOffsetX = 0;
-  context.shadowOffsetY = 2;
-  context.shadowBlur = 8;
-  context.shadowColor = "#dcdcdc";
-
-  context.font = `${weight} ${size}px ${font}`;
-  const labelWidth = context.measureText(label).width;
-  //context.font = `${weight} ${subLabelSize}px ${font}`;
-  //const subLabelWidth = subLabel ? context.measureText(subLabel).width : 0;
-  //context.font = `${weight} ${subLabelSize}px ${font}`;
-  //const clusterLabelWidth = clusterLabel ? context.measureText(clusterLabel).width : 0;
-
-  const textWidth = labelWidth//Math.max(labelWidth, subLabelWidth, clusterLabelWidth);
-
-  const x = Math.round(data.x);
-  const y = Math.round(data.y);
-  const w = Math.round(textWidth + size / 2 + data.size + 3);
-  const hLabel = Math.round(size / 2 + 4);
-  //const hSubLabel = subLabel ? Math.round(subLabelSize / 2 + 9) : 0;
-  //const hClusterLabel = Math.round(subLabelSize / 2 + 9);
-
-  drawRoundRect(context, x, y - 12, w, hLabel + 12, 5);
-  context.closePath();
-  context.fill();
-
-  context.shadowOffsetX = 0;
-  context.shadowOffsetY = 0;
-  context.shadowBlur = 0;
-
-  // And finally we draw the labels
-  context.fillStyle = TEXT_COLOR;
-  context.font = `${weight} ${size}px ${font}`;
-  context.fillText(label, data.x + data.size + 3, data.y + size / 3);
-
-  /*if (subLabel) {
-    context.fillStyle = TEXT_COLOR;
-    context.font = `${weight} ${subLabelSize}px ${font}`;
-    context.fillText(subLabel, data.x + data.size + 3, data.y - (2 * size) / 3 - 2);
-  }*/
-
-  context.fillStyle = data.color;
-  /*context.font = `${weight} ${subLabelSize}px ${font}`;
-  context.fillText(clusterLabel, data.x + data.size + 3, data.y + size / 3 + 3 + subLabelSize);*/
-}
-
-let draggedNode = null;
+/*let draggedNode = null;
 let isDragging = false;
 
 // On mouse down on a node
@@ -339,7 +202,7 @@ renderer.setSetting("nodeReducer", (node, data) => {
     }
   }
 
-  return res;*/
+  return res;
 });
 
 renderer.setSetting("edgeReducer", (edge, data) => {
@@ -348,7 +211,7 @@ renderer.setSetting("edgeReducer", (edge, data) => {
       ...data,
       hidden : true
     }
-  }*/
+  }
 
   return data;
 
@@ -368,7 +231,7 @@ renderer.setSetting("edgeReducer", (edge, data) => {
     res.hidden = true;
   }
 
-  return res;*/
+  return res;
 });
 
 renderer.on("doubleClickNode", ({ event, node: clickedNode }) => {
@@ -447,7 +310,7 @@ renderer.on("doubleClickNode", ({ event, node: clickedNode }) => {
   nodes.slice(1).forEach(d => graph.addEdge(nodes[0]._id, d._id));
 
   // We create the edges
-  graph.addEdge(id, clickedNode);*/
+  graph.addEdge(id, clickedNode);
 });
 
 function getClosestEdge(bbox, eventCoords) {
@@ -521,118 +384,307 @@ function translatePoints(graph, translationSettings, bbox) {
       attributes.x = attributes.x + (randomx * randomDirection);
     })
   }
-}
+}*/
 
-const createPixiLayer = async () => {
-  // Create a PixiJS application.
-  const app = new Application();
-
-  // Intialize the application.
-  await app.init({ backgroundAlpha: 0, resizeTo: window });
-
-  // Then adding the application's canvas to the DOM body.
-
-  window.app = app;
-
-  const container = document.getElementById('app')
-
-  addSprite(graph, app)
-
-  app.canvas.style.position = 'absolute'
-  container
-    .insertBefore(app.canvas, container.querySelector(".sigma-labels"));
-
-  renderer.on("afterRender", () => {
-
-    const scale = renderer.scaleSize(1);
-
-    Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
-
-      const coords = renderer.graphToViewport({ x: d.x, y: d.y })
-      d.sprite.x = coords.x - renderer.scaleSize(7);
-      d.sprite.y = coords.y - renderer.scaleSize(7);
-
-      d.sprite.width = 10 * scale;
-      d.sprite.height = 5 * scale;
-
-      d.circleSprite.x = coords.x + renderer.scaleSize(7);
-      d.circleSprite.y = coords.y - renderer.scaleSize(7);
-
-      d.circleSprite.width = 12 * scale;
-      d.circleSprite.height = 12 * scale;
-
-      d.textSprite.x = coords.x + renderer.scaleSize(7);
-      d.textSprite.y = coords.y - renderer.scaleSize(7);
-
-      d.textSprite.style.fontSize = 7 * scale;
-    })
-  });
-};
 
 const flagsTextureMap = {
 
 }
 
-function addSprite(graph, app) {
-
-  let circleContext = new GraphicsContext()
-    .circle(0, 0, 6)
-    .fill('red')
-
-
-  Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
-    const sprite = new Sprite(texture);
-
-    sprite.anchor.set(0.5);
-    app.stage.addChild(sprite);
-
-    d.sprite = sprite;
-
-    const coords = renderer.graphToViewport({ x: d.x, y: d.y })
-    sprite.x = coords.x;
-    sprite.y = coords.y;
-    sprite.width = 10;
-    sprite.height = 5;
-
-    const circleSprite = new Graphics(circleContext);
-
-    circleSprite.x = coords.x;
-    circleSprite.y = coords.y;
-
-    d.circleSprite = circleSprite;
-
-    app.stage.addChild(circleSprite);
-
-    const text = new Text(d.outgoingEdgeCount,
-      {
-        fontFamily: 'Arial',
-        fill: '#ffffff',
-        align: 'center',
-        fontSize: 7
-      }
-    );
-
-    d.textSprite = text;
-
-    text.anchor.set(0.5);
-    text.x = coords.x;
-    text.y = coords.y;
-
-    app.stage.addChild(text);
-  })
-}
-
-createPixiLayer();
-
 class GraphViz {
-  constructor(container, graph, renderer) {
+  constructor(container, graph, renderer, options) {
     this.container = container;
     this.graph = graph;
     this.renderer = renderer;
+    this.options = options;
+    this.actor = null;
 
     this.collapsedNodes = [];
-    this.highlightedNodes = [];
+    this.displayedNodes = new Set(graph.nodes());
+
+    this.setDefaultNodeReducer();
+
+    this.pixiLayer = new PixiLayer(graph, container, renderer);
+
   }
+
+  setUpListeners(actor) {
+
+    this.renderer
+      .on("enterNode", ({ node }) => {
+        actor.send({
+          type: 'HOVER_START',
+          data: [node]
+        })
+      });
+
+    this.renderer
+      .on("leaveNode", ({ node }) => {
+        actor.send({
+          type: 'HOVER_END'
+        })
+      });
+  }
+
+  getNodesToHighlight(nodesSet) {
+    const graph = this.graph;
+
+    const selectNodesArr = Array.from(nodesSet.keys())
+
+    const highLightedNodesNeighbors = selectNodesArr.reduce(
+      (acc, d) => {
+        graph.neighbors(d)
+          .forEach(e => {
+            acc.add(e);
+          })
+        return acc;
+      }, new Set());
+
+    const nodesToHighlight = new Set(
+      Array.from(nodesSet.keys())
+        .concat(
+          Array.from(highLightedNodesNeighbors.keys()
+          )
+        )
+    );
+
+    if (this.displayedNodes) {
+      Array.from(nodesToHighlight.keys())
+        .forEach(
+          d => {
+            if (!this.displayedNodes.has(d)) {
+              nodesToHighlight.delete(d)
+            }
+          }
+        )
+    };
+
+    return nodesToHighlight;
+  }
+
+  highlightNodes(nodesSet) {
+
+    const graph = this.graph;
+
+    const nodesToHighlight = this.getNodesToHighlight(nodesSet);
+
+    this.renderer.setSetting("nodeReducer", (node, data) => {
+
+      const res = { ...data };
+
+      if (!nodesToHighlight.has(node)) {
+        res.label = "";
+        res.color = "#f6f6f6";
+        res.image = null;
+        res.hidden = true;
+        this.pixiLayer.hideSprite(res);
+      }
+
+      if (nodesToHighlight.has(node)) {
+        //res.forceLabel = true;
+      } else {
+        res.label = "";
+      }
+
+      return res;
+    });
+
+    this.renderer.setSetting("edgeReducer", (edge, data) => {
+      /*if (isDragging) {
+        return {
+          ...data,
+          hidden: true
+        }
+      }*/
+
+      const res = { ...data };
+
+      const nodes = graph.extremities(edge);
+
+      if (
+        (nodesToHighlight.has(nodes[0]) && nodesToHighlight.has(nodes[1]))
+      ) {
+        res.forceLabel = true;
+        return res
+      }
+
+      res.hidden = true;
+      return res;
+
+      /*if (
+      !graph.extremities(edge).every((n) => n === state.hoveredNode || graph.areNeighbors(n, state.hoveredNode))
+    ) {
+      res.hidden = true;
+    }
+
+    if (
+      state.suggestions &&
+      (!state.suggestions.has(graph.source(edge)) || !state.suggestions.has(graph.target(edge)))
+    ) {
+      res.hidden = true;
+    }*/
+    });
+  }
+
+  refreshSigma() {
+    this.renderer.scheduleRefresh({
+      layoutUnchange: true
+    })
+  }
+
+  setDefaultNodeReducer() {
+    this.renderer.setSetting("nodeReducer", (node, data) => {
+      if (!this.displayedNodes.has(node)) {
+        this.pixiLayer.hideSprite(data);
+        return { ...data, hidden: true }
+      } else {
+        return data;
+      }
+    })
+  }
+
+  setDefaultEdgeReducer() {
+    this.renderer.setSetting("edgeReducer", (edge, data) => {
+      return data;
+    })
+  }
+
+  removeHighlight() {
+    //this.highlightedNodes = null;
+
+    this.graph.forEachNode((nodeID, attr) => {
+      this.pixiLayer.showSprite(attr);
+    })
+
+    this.setDefaultNodeReducer();
+    this.setDefaultEdgeReducer();
+  }
+}
+
+class PixiLayer {
+  constructor(graph, container, renderer) {
+    this.graph = graph;
+    this.container = container;
+    this.renderer = renderer;
+  }
+
+  async initPixiLayer() {
+    // Create a PixiJS application.
+    const app = new Application();
+    this.pixiApp = app;
+
+    // Intialize the application.
+    await app.init({ backgroundAlpha: 0, resizeTo: window });
+
+    // Then adding the application's canvas to the DOM body.
+    const container = this.container;
+    const graph = this.graph;
+    const renderer = this.renderer;
+
+    this.addSprites(graph, app)
+
+    app.canvas.style.position = 'absolute';
+
+    container
+      .insertBefore(app.canvas, container.querySelector(".sigma-labels"));
+
+    renderer.on("afterRender", () => {
+
+      const scale = renderer.scaleSize(1);
+
+      Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
+        this.syncSpriteToSigma(d, scale);
+      })
+    });
+  }
+
+  addSprites() {
+
+    const graph = this.graph;
+    const app = this.pixiApp;
+    const renderer = this.renderer;
+
+    let circleContext = new GraphicsContext()
+      .circle(0, 0, 6)
+      .fill('red')
+
+
+    Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
+      const sprite = new Sprite(texture);
+
+      sprite.anchor.set(0.5);
+      app.stage.addChild(sprite);
+
+      d.sprite = sprite;
+
+      const coords = renderer.graphToViewport({ x: d.x, y: d.y })
+      sprite.x = coords.x;
+      sprite.y = coords.y;
+      sprite.width = 10;
+      sprite.height = 5;
+
+      const circleSprite = new Graphics(circleContext);
+
+      circleSprite.x = coords.x;
+      circleSprite.y = coords.y;
+
+      d.circleSprite = circleSprite;
+
+      app.stage.addChild(circleSprite);
+
+      const text = new Text(d.outgoingEdgeCount,
+        {
+          fontFamily: 'Arial',
+          fill: '#ffffff',
+          align: 'center',
+          fontSize: 7
+        }
+      );
+
+      d.textSprite = text;
+
+      text.anchor.set(0.5);
+      text.x = coords.x;
+      text.y = coords.y;
+
+      app.stage.addChild(text);
+    })
+  }
+
+  syncSpriteToSigma(graphologyNode, scale) {
+    const renderer = this.renderer;
+
+    const coords = renderer.graphToViewport({ x: graphologyNode.x, y: graphologyNode.y })
+    graphologyNode.sprite.x = coords.x - renderer.scaleSize(7);
+    graphologyNode.sprite.y = coords.y - renderer.scaleSize(7);
+
+    graphologyNode.sprite.width = 10 * scale;
+    graphologyNode.sprite.height = 5 * scale;
+
+    graphologyNode.circleSprite.x = coords.x + renderer.scaleSize(7);
+    graphologyNode.circleSprite.y = coords.y - renderer.scaleSize(7);
+
+    graphologyNode.circleSprite.width = 12 * scale;
+    graphologyNode.circleSprite.height = 12 * scale;
+
+    graphologyNode.textSprite.x = coords.x + renderer.scaleSize(7);
+    graphologyNode.textSprite.y = coords.y - renderer.scaleSize(7);
+
+    graphologyNode.textSprite.style.fontSize = 7 * scale;
+  }
+
+  hideSprite(attr) {
+    attr.sprite.renderable = false;
+    attr.textSprite.renderable = false;
+    attr.circleSprite.renderable = false;
+  }
+
+  showSprite(attr) {
+    attr.sprite.renderable = true;
+    attr.textSprite.renderable = true;
+    attr.circleSprite.renderable = true;
+  }
+
 }
 
 function getCurvature(index, maxIndex) {
@@ -737,23 +789,101 @@ function createGraphFromAPI(graphData) {
 
 function createVizStateChart(initialData, container) {
 
+  const graph = createGraphFromAPI(initialData);
+  const renderer = createRenderer(graph, container);
+
+  const graphViz = new GraphViz(container, graph, renderer);
+
+  window.graphViz = graphViz;
+
   const graphStateChart = setup({
     actions: {
-      'initViz': () => {
+      'initViz': ({ context, self }) => {
+        console.log('initializing viz');
+
+        context.graphViz.pixiLayer.initPixiLayer();
+        context.graphViz.setUpListeners(self);
+
+        self.send({
+          type: 'INITIALIZED'
+        })
+      },
+      'highlightNode': ({ context, self, event }) => {
+        console.log('highlighting action', event.data);
+        context.graphViz.highlightNodes(new Set(event.data))
+      },
+      'removeHighlight': ({ context, self, event }) => {
+        console.log('remove highlight');
+        context.graphViz.removeHighlight();
+      },
+      'updateDisplayedNodes': ({ context, self, event }) => {
+        console.log('transition to highlighted state', event.data);
+        context.graphViz.displayedNodes = new Set(event.data);
+        context.graphViz.refreshSigma();
       }
     }
   })
     .createMachine({
       id: 'graphviz',
+      context: {
+        graphViz: graphViz
+      },
       initial: 'init',
       states: {
         'init': {
           entry: {
             type: 'initViz'
+          },
+          on: {
+            'INITIALIZED': {
+              target: '#idle'
+            }
+          }
+        },
+        'idle': {
+          id: 'idle',
+          on: {
+            'HOVER_START': {
+              target: '#hovered.node'
+            },
+            'CHANGE_DISPLAYED_NODES': {
+              target: '#idle',
+              actions: [{
+                type: 'updateDisplayedNodes'
+              }]
+            }
+          }
+        },
+        'hovered': {
+          id: 'hovered',
+          initial: 'node',
+          states: {
+            'node': {
+              entry: {
+                type: 'highlightNode'
+              },
+              on: {
+                'HOVER_END': {
+                  target: '#idle',
+                }
+              },
+              exit: {
+                type: 'removeHighlight'
+              }
+            }
           }
         }
       }
     })
 
   const actor = createActor(graphStateChart);
+
+  window.actor = actor;
+
+  actor.start();
 }
+
+createVizStateChart(res.graph, document.getElementById("app"))
+
+window.dfsFromNode = dfsFromNode;
+

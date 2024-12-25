@@ -1,0 +1,1 @@
+export const TEXT_COLOR = "#b186f7";
