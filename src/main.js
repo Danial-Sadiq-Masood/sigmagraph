@@ -18,7 +18,7 @@ import { Application, Assets, Sprite, Graphics, Text, GraphicsContext } from 'pi
 
 import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
 
-import { createMachine, setup, createActor } from 'xstate';
+import { createMachine, setup, createActor, assign } from 'xstate';
 
 import { createRenderer } from './SigmaRenderer'
 
@@ -36,10 +36,6 @@ const svgMap = new Map(
     ['person', { url: userCircle, color: '#007AFF' }]
   ]
 );
-
-
-
-const texture = await Assets.load(estSprite);
 
 window.res = res;
 
@@ -424,6 +420,37 @@ class GraphViz {
           type: 'HOVER_END'
         })
       });
+
+    this.renderer
+      .on("downNode", (event) => {
+        console.log(event);
+        actor.send({
+          type: 'NODE_DOWN',
+          data: event
+        })
+      });
+
+    this.renderer.on("moveBody", ({ event }) => {
+      actor.send({
+        type: 'MOVE_BODY',
+        data: event
+      })
+    })
+
+    this.renderer.on("upNode", ({ event }) => {
+      actor.send({
+        type: 'MOUSE_UP',
+        data: event
+      })
+    })
+
+    this.renderer.on("upStage", ({ event }) => {
+      actor.send({
+        type: 'MOUSE_UP',
+        data: event
+      })
+    })
+
   }
 
   getNodesToHighlight(nodesSet) {
@@ -526,6 +553,23 @@ class GraphViz {
     });
   }
 
+  dragNode(draggedNode, event) {
+    const renderer = this.renderer;
+    const graph = this.graph;
+
+    if (!renderer.getCustomBBox()) renderer.setCustomBBox(renderer.getBBox());
+
+    const pos = renderer.viewportToGraph(event);
+
+    graph.setNodeAttribute(draggedNode, "x", pos.x);
+    graph.setNodeAttribute(draggedNode, "y", pos.y);
+
+    // Prevent sigma to move camera:
+    event.preventSigmaDefault();
+    event.original.preventDefault();
+    event.original.stopPropagation();
+  }
+
   refreshSigma() {
     this.renderer.scheduleRefresh({
       layoutUnchange: true
@@ -574,6 +618,8 @@ class PixiLayer {
     this.pixiApp = app;
 
     // Intialize the application.
+    const texture = await Assets.load(estSprite);
+    this.texture = texture;
     await app.init({ backgroundAlpha: 0, resizeTo: window });
 
     // Then adding the application's canvas to the DOM body.
@@ -581,7 +627,7 @@ class PixiLayer {
     const graph = this.graph;
     const renderer = this.renderer;
 
-    this.addSprites(graph, app)
+    this.addSprites()
 
     app.canvas.style.position = 'absolute';
 
@@ -603,6 +649,7 @@ class PixiLayer {
     const graph = this.graph;
     const app = this.pixiApp;
     const renderer = this.renderer;
+    const texture = this.texture;
 
     let circleContext = new GraphicsContext()
       .circle(0, 0, 6)
@@ -820,6 +867,11 @@ function createVizStateChart(initialData, container) {
         console.log('transition to highlighted state', event.data);
         context.graphViz.displayedNodes = new Set(event.data);
         context.graphViz.refreshSigma();
+      },
+      'dragNode': ({ context, self, event }) => {
+        console.log('in drag node');
+        console.log(context, event.data);
+        context.graphViz.dragNode(context.draggedNode, event.data);
       }
     }
   })
@@ -865,11 +917,38 @@ function createVizStateChart(initialData, container) {
               on: {
                 'HOVER_END': {
                   target: '#idle',
-                }
+                },
+                'NODE_DOWN': {
+                  target: '#dragging',
+                },
               },
               exit: {
                 type: 'removeHighlight'
               }
+            }
+          }
+        },
+        'dragging': {
+          id: 'dragging',
+          entry: [
+            assign(
+              {
+                draggedNode: ({ event }) => event.data.node
+              }
+            ),
+            (e) => console.log(e)
+          ],
+          exit: assign({
+            draggedNode: undefined
+          }),
+          on: {
+            'MOVE_BODY': {
+              actions: {
+                type: 'dragNode'
+              }
+            },
+            'MOUSE_UP': {
+              target: 'idle'
             }
           }
         }
