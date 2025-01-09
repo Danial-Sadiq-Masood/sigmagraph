@@ -14,7 +14,7 @@ import { dfsFromNode } from 'graphology-traversal';
 
 import { nodeExtent, edgeExtent } from 'graphology-metrics/graph';
 
-import { Application, Assets, Sprite, Graphics, Text, GraphicsContext } from 'pixi.js';
+import { Application, Assets, Sprite, Graphics, Text, GraphicsContext, Container } from 'pixi.js';
 
 import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
 
@@ -29,6 +29,8 @@ import estSprite from './images/est.png';
 import userCircle from './images/user-circle.png';
 
 import office from './images/office.png';
+
+import noverlap from 'graphology-layout-noverlap';
 
 const svgMap = new Map(
   [
@@ -508,7 +510,7 @@ class GraphViz {
       }
 
       if (nodesToHighlight.has(node)) {
-        //res.forceLabel = true;
+        res.forceLabel = true;
       } else {
         res.label = "";
       }
@@ -551,6 +553,15 @@ class GraphViz {
       res.hidden = true;
     }*/
     });
+  }
+
+  initNodeDrag(draggedNode) {
+    let index = 0;
+    this.graph.updateEachNodeAttributes((nodeId, attr) => {
+      return { ...attr, zIndex: index++ }
+    })
+
+    this.graph.setNodeAttribute(draggedNode, "zIndex", index + 100);
   }
 
   dragNode(draggedNode, event) {
@@ -655,8 +666,15 @@ class PixiLayer {
       .circle(0, 0, 6)
       .fill('red')
 
+    let rectContext = new GraphicsContext()
+      .rect(0, 0, 140, 140)
+      .fill('red')
+
 
     Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
+
+      const nodeContainer = new Container();
+
       const sprite = new Sprite(texture);
 
       sprite.anchor.set(0.5);
@@ -670,14 +688,14 @@ class PixiLayer {
       sprite.width = 10;
       sprite.height = 5;
 
-      const circleSprite = new Graphics(circleContext);
+      const rectSprite = new Graphics(rectContext);
 
-      circleSprite.x = coords.x;
-      circleSprite.y = coords.y;
+      rectSprite.x = coords.x;
+      rectSprite.y = coords.y;
 
-      d.circleSprite = circleSprite;
+      d.rectSprite = rectSprite;
 
-      app.stage.addChild(circleSprite);
+      app.stage.addChild(rectSprite);
 
       const text = new Text(d.outgoingEdgeCount,
         {
@@ -699,23 +717,26 @@ class PixiLayer {
   }
 
   syncSpriteToSigma(graphologyNode, scale) {
+
+    const distance = 12;
+
     const renderer = this.renderer;
 
     const coords = renderer.graphToViewport({ x: graphologyNode.x, y: graphologyNode.y })
-    graphologyNode.sprite.x = coords.x - renderer.scaleSize(7);
-    graphologyNode.sprite.y = coords.y - renderer.scaleSize(7);
+    graphologyNode.sprite.x = coords.x - renderer.scaleSize(distance);
+    graphologyNode.sprite.y = coords.y - renderer.scaleSize(distance);
 
     graphologyNode.sprite.width = 10 * scale;
     graphologyNode.sprite.height = 5 * scale;
 
-    graphologyNode.circleSprite.x = coords.x + renderer.scaleSize(7);
-    graphologyNode.circleSprite.y = coords.y - renderer.scaleSize(7);
+    graphologyNode.rectSprite.x = coords.x - renderer.scaleSize(70);
+    graphologyNode.rectSprite.y = coords.y - renderer.scaleSize(70);;
 
-    graphologyNode.circleSprite.width = 12 * scale;
-    graphologyNode.circleSprite.height = 12 * scale;
+    graphologyNode.rectSprite.width = 140 * scale;
+    graphologyNode.rectSprite.height = 140 * scale;
 
-    graphologyNode.textSprite.x = coords.x + renderer.scaleSize(7);
-    graphologyNode.textSprite.y = coords.y - renderer.scaleSize(7);
+    graphologyNode.textSprite.x = coords.x + renderer.scaleSize(distance);
+    graphologyNode.textSprite.y = coords.y - renderer.scaleSize(distance);
 
     graphologyNode.textSprite.style.fontSize = 7 * scale;
   }
@@ -723,13 +744,11 @@ class PixiLayer {
   hideSprite(attr) {
     attr.sprite.renderable = false;
     attr.textSprite.renderable = false;
-    attr.circleSprite.renderable = false;
   }
 
   showSprite(attr) {
     attr.sprite.renderable = true;
     attr.textSprite.renderable = true;
-    attr.circleSprite.renderable = true;
   }
 
 }
@@ -760,12 +779,12 @@ function createGraphFromAPI(graphData) {
     graph.addNode(d._id, {
       ...d.source,
       _cc: d._cc,
-      label: d.source.name,
-      size: i == 0 ? 10 : 10,
+      //label: d.source.name,
+      size: 140,
       outgoingEdgeCount: outgoingEdgeCount ? outgoingEdgeCount.length : 0,
-      type: "image",
-      image: svgMap.get(d.source.context).url,
-      color: svgMap.get(d.source.context).color
+      type: "square",
+      //image: svgMap.get(d.source.context).url,
+      color: "white"
     })
   })
 
@@ -821,14 +840,29 @@ function createGraphFromAPI(graphData) {
   );
 
   //assign random coordinates for forceAtlas2
-  random.assign(graph);
+  random.assign(graph, {
+  });
 
   const sensibleSettings = forceAtlas2.inferSettings(graph);
 
   //run forceAtlas2
   circlepack.assign(graph, {
-    hierarchyAttributes: ['context'],
-    scale: 4
+    hierarchyAttributes: ["context"]
+  });
+
+  /*forceLayout.assign(graph, {
+    maxIterations : 100,
+    settings : {
+      inertia : 0,
+      repulsion : 1,
+      maxMove : 500
+    }
+  })*/
+
+  /*noverlap.assign(graph)*/;
+
+  graph.updateEachNodeAttributes((node, attr) => {
+    return { ...attr, size: 70 }
   });
 
   return graph;
@@ -871,6 +905,7 @@ function createVizStateChart(initialData, container) {
       'dragNode': ({ context, self, event }) => {
         console.log('in drag node');
         console.log(context, event.data);
+        context.graphViz.initNodeDrag(context.draggedNode);
         context.graphViz.dragNode(context.draggedNode, event.data);
       }
     }

@@ -1,10 +1,12 @@
 import Sigma from "sigma";
-import { EdgeLineProgram, EdgeRectangleProgram, EdgeArrowProgram } from "sigma/rendering";
+import { EdgeLineProgram, EdgeRectangleProgram, EdgeArrowProgram, createEdgeArrowProgram } from "sigma/rendering";
 import EdgeCurveProgram from "@sigma/edge-curve";
 
-import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
+import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, createEdgeCurveProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
 
-import { createNodeImageProgram } from "@sigma/node-image";
+import { createNodeImageProgram, NodePictogramProgram  } from "@sigma/node-image";
+
+import { NodeSquareProgram } from "@sigma/node-square";
 
 import { TEXT_COLOR } from "./viz_defaults";
 
@@ -115,8 +117,11 @@ export function createRenderer(graph, container) {
         container,
         {
             defaultDrawNodeLabel: drawLabel,
+            zIndex : true,
             labelWeight: 500,
             labelSize: 15,
+            zoomToSizeRatioFunction: (ratio) => ratio,
+            autoRescale : false,
             labelRenderedSizeThreshold: 13,
             defaultDrawNodeHover: drawHover,
             labelFont: "Ubuntu, sans-serif",
@@ -125,13 +130,21 @@ export function createRenderer(graph, container) {
             edgeLabelSizePowRatio: 0.6,
             defaultEdgeType: "straight",
             edgeProgramClasses: {
-                straight: EdgeArrowProgram,
-                curved: EdgeCurvedArrowProgram
+                straight: createEdgeArrowProgram({
+                    widenessToThicknessRatio : 4,
+                    lengthToThicknessRatio : 4
+                }),
+                curved: createEdgeCurveProgram({
+                    lengthToThicknessRatio : 4,
+                    widenessToThicknessRatio : 4,
+                })
             },
             nodeProgramClasses: {
                 image: createNodeImageProgram({
-                    size: { mode: "force", value: 256 },
-                })
+                    size: { mode: "max", value: 128 },
+                    padding : 0.4
+                }),
+                square: NodeSquareProgram
             }
         }
     );
