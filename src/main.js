@@ -14,7 +14,7 @@ import { dfsFromNode } from 'graphology-traversal';
 
 import { nodeExtent, edgeExtent } from 'graphology-metrics/graph';
 
-import { Application, Assets, Sprite, Graphics, Text, GraphicsContext, Container } from 'pixi.js';
+import { Application, Assets, Sprite, Graphics, Text, GraphicsContext, Container, Point, RoundedRectangle, TextStyle, CanvasTextMetrics } from 'pixi.js';
 
 import { DEFAULT_EDGE_CURVATURE, EdgeCurvedArrowProgram, indexParallelEdgesIndex } from "@sigma/edge-curve";
 
@@ -30,7 +30,12 @@ import userCircle from './images/user-circle.png';
 
 import office from './images/office.png';
 
+import userCircleSVG from './images/user-circle.svg';
+
 import noverlap from 'graphology-layout-noverlap';
+
+
+console.log(userCircleSVG);
 
 const svgMap = new Map(
   [
@@ -625,12 +630,15 @@ class PixiLayer {
 
   async initPixiLayer() {
     // Create a PixiJS application.
-    const app = new Application();
+    const app = new Application({ antialias: true });
     this.pixiApp = app;
 
     // Intialize the application.
     const texture = await Assets.load(estSprite);
     this.texture = texture;
+
+    this.userCircleTexture = await Assets.load(userCircle);
+
     await app.init({ backgroundAlpha: 0, resizeTo: window });
 
     // Then adding the application's canvas to the DOM body.
@@ -673,72 +681,151 @@ class PixiLayer {
 
     Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
 
+      const coords = renderer.graphToViewport({ x: d.x, y: d.y })
+
       const nodeContainer = new Container();
+
+      nodeContainer.pivot = new Point(70, 70);
+
+      nodeContainer.x = coords.x;
+      nodeContainer.y = coords.y;
+
+      d.nodeContainer = nodeContainer;
 
       const sprite = new Sprite(texture);
 
-      sprite.anchor.set(0.5);
-      app.stage.addChild(sprite);
+      sprite.anchor.set(0);
+      nodeContainer.addChild(sprite);
 
       d.sprite = sprite;
 
-      const coords = renderer.graphToViewport({ x: d.x, y: d.y })
-      sprite.x = coords.x;
-      sprite.y = coords.y;
-      sprite.width = 10;
-      sprite.height = 5;
+      sprite.x = 0;
+      sprite.y = 0;
+      sprite.width = 32;
+      sprite.height = 26;
 
       const rectSprite = new Graphics(rectContext);
 
-      rectSprite.x = coords.x;
-      rectSprite.y = coords.y;
+      rectSprite.x = 0;
+      rectSprite.y = 0;
 
       d.rectSprite = rectSprite;
 
-      app.stage.addChild(rectSprite);
+      //nodeContainer.addChild(rectSprite);
 
-      const text = new Text(d.outgoingEdgeCount,
-        {
+      const padding = { x: 10, y: 5 };
+      const radius = 20;
+      const origin = { x: 140, y: 0 };
+
+      const text = new Text({
+        text: d.outgoingEdgeCount,
+        style: {
           fontFamily: 'Arial',
           fill: '#ffffff',
           align: 'center',
-          fontSize: 7
+          fontSize: 15
         }
+      }
       );
 
       d.textSprite = text;
 
-      text.anchor.set(0.5);
-      text.x = coords.x;
-      text.y = coords.y;
+      text.anchor.set(1, 0);
+      text.x = origin.x - padding.x;
+      text.y = origin.y + padding.y;
 
-      app.stage.addChild(text);
+      const textbg = new Graphics();
+      textbg.beginFill("rgb(52, 184, 28)", 1);
+      textbg.setStrokeStyle({ color: 'rgb(50, 103, 41)', width: 2 })
+      textbg.roundRect(origin.x - text.width - 2 * padding.x, origin.y, text.width + 2 * padding.x, text.height + 2 * padding.y, radius);
+      textbg.endFill();
+
+      nodeContainer.addChild(textbg);
+      nodeContainer.addChild(text);
+
+      const icon = new Sprite(this.userCircleTexture);
+
+      icon.anchor.set(0.5)
+
+      icon.width = 70;
+      icon.height = 70;
+
+      icon.x = 70;
+      icon.y = 40;
+
+      nodeContainer.addChild(icon);
+
+      const labelStyle = new TextStyle({
+        fontFamily: 'Arial',
+        fill: 'black',
+        align: 'center',
+        fontSize: 22,
+        breakWords: true,
+        wordWrap: true,
+        wordWrapWidth: 140,
+        padding : 3
+      })
+
+      const {lines : textLines} = CanvasTextMetrics.measureText(d.name, labelStyle);
+
+      let labelText = d.name;
+
+      if(textLines.length > 2){
+        if(textLines[1].length > 6){
+          textLines[1] = textLines[1].slice(0,6) + '...'
+        }
+        labelText = textLines.slice(0,2).join('');
+      }
+
+      const nodeLabel = new Text({
+        text: labelText,
+        style: labelStyle
+      }
+      );
+
+      nodeLabel.anchor.set(0.5, 0);
+      nodeLabel.x = 70
+      nodeLabel.y = 75
+
+      nodeContainer.addChild(nodeLabel);
+
+      app.stage.addChild(nodeContainer);
     })
   }
 
   syncSpriteToSigma(graphologyNode, scale) {
 
-    const distance = 12;
-
     const renderer = this.renderer;
+  
+    const coords = renderer.graphToViewport({ x: graphologyNode.x, y: graphologyNode.y })
 
+    graphologyNode.nodeContainer.scale = scale
+
+    graphologyNode.nodeContainer.x = coords.x;
+
+    graphologyNode.nodeContainer.y = coords.y;
+
+    /*const distance = 12;
+  
+    const renderer = this.renderer;
+  
     const coords = renderer.graphToViewport({ x: graphologyNode.x, y: graphologyNode.y })
     graphologyNode.sprite.x = coords.x - renderer.scaleSize(distance);
     graphologyNode.sprite.y = coords.y - renderer.scaleSize(distance);
-
+  
     graphologyNode.sprite.width = 10 * scale;
     graphologyNode.sprite.height = 5 * scale;
-
+  
     graphologyNode.rectSprite.x = coords.x - renderer.scaleSize(70);
     graphologyNode.rectSprite.y = coords.y - renderer.scaleSize(70);;
-
+  
     graphologyNode.rectSprite.width = 140 * scale;
     graphologyNode.rectSprite.height = 140 * scale;
-
+  
     graphologyNode.textSprite.x = coords.x + renderer.scaleSize(distance);
     graphologyNode.textSprite.y = coords.y - renderer.scaleSize(distance);
-
-    graphologyNode.textSprite.style.fontSize = 7 * scale;
+  
+    graphologyNode.textSprite.style.fontSize = 7 * scale;*/
   }
 
   hideSprite(attr) {
@@ -795,7 +882,7 @@ function createGraphFromAPI(graphData) {
       connectionsArr.forEach(([targetIndex, edgeIndex]) => {
         const target = nodes[targetIndex]
         const edge = edges[edgeIndex]
-        edge.size = 1;
+        edge.size = 3;
         edge.label = edge.source.sub_context_label;
         try {
           graph.addDirectedEdge(source._id, target._id, edge)
@@ -879,10 +966,11 @@ function createVizStateChart(initialData, container) {
 
   const graphStateChart = setup({
     actions: {
-      'initViz': ({ context, self }) => {
+      'initViz': async ({ context, self }) => {
         console.log('initializing viz');
 
-        context.graphViz.pixiLayer.initPixiLayer();
+        await context.graphViz.pixiLayer.initPixiLayer();
+        context.graphViz.refreshSigma();
         context.graphViz.setUpListeners(self);
 
         self.send({
