@@ -676,7 +676,7 @@ class PixiLayer {
 
     let rectContext = new GraphicsContext()
       .rect(0, 0, 140, 140)
-      .fill('red')
+      .fill('white')
 
 
     Array.from(graph.nodeEntries()).forEach(({ attributes: d }) => {
@@ -711,7 +711,7 @@ class PixiLayer {
 
       d.rectSprite = rectSprite;
 
-      //nodeContainer.addChild(rectSprite);
+      nodeContainer.addChild(rectSprite);
 
       const padding = { x: 10, y: 5 };
       const radius = 20;
@@ -829,13 +829,11 @@ class PixiLayer {
   }
 
   hideSprite(attr) {
-    attr.sprite.renderable = false;
-    attr.textSprite.renderable = false;
+    attr.nodeContainer.renderable = false;
   }
 
   showSprite(attr) {
-    attr.sprite.renderable = true;
-    attr.textSprite.renderable = true;
+    attr.nodeContainer.renderable = true;
   }
 
 }
@@ -970,6 +968,10 @@ function createVizStateChart(initialData, container) {
         console.log('initializing viz');
 
         await context.graphViz.pixiLayer.initPixiLayer();
+
+        document.getElementsByClassName('sigma-hovers')[0].style.opacity = 0;
+        document.getElementsByClassName('sigma-hoverNodes')[0].style.opacity = 0;
+
         context.graphViz.refreshSigma();
         context.graphViz.setUpListeners(self);
 
