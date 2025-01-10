@@ -692,6 +692,15 @@ class PixiLayer {
 
       d.nodeContainer = nodeContainer;
 
+      const rectSprite = new Graphics(rectContext);
+
+      rectSprite.x = 0;
+      rectSprite.y = 0;
+
+      d.rectSprite = rectSprite;
+
+      nodeContainer.addChild(rectSprite);
+
       const sprite = new Sprite(texture);
 
       sprite.anchor.set(0);
@@ -703,15 +712,6 @@ class PixiLayer {
       sprite.y = 0;
       sprite.width = 32;
       sprite.height = 26;
-
-      const rectSprite = new Graphics(rectContext);
-
-      rectSprite.x = 0;
-      rectSprite.y = 0;
-
-      d.rectSprite = rectSprite;
-
-      nodeContainer.addChild(rectSprite);
 
       const padding = { x: 10, y: 5 };
       const radius = 20;
@@ -981,11 +981,11 @@ function createVizStateChart(initialData, container) {
       },
       'highlightNode': ({ context, self, event }) => {
         console.log('highlighting action', event.data);
-        context.graphViz.highlightNodes(new Set(event.data))
+        //context.graphViz.highlightNodes(new Set(event.data))
       },
       'removeHighlight': ({ context, self, event }) => {
         console.log('remove highlight');
-        context.graphViz.removeHighlight();
+        //context.graphViz.removeHighlight();
       },
       'updateDisplayedNodes': ({ context, self, event }) => {
         console.log('transition to highlighted state', event.data);
